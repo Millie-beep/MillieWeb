@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Millie的AI作品集</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --neon-purple: #b44fff;
+      --neon-cyan: #00d4ff;
+      --neon-pink: #ff2d78;
+      --bg-dark: #06060f;
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(180,79,255,0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: var(--bg-dark);
+      color: #e0e0ff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #vanta-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+      padding-bottom: 64px;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      width: 120px;
+      height: 120px;
+    }
+
+    .avatar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(var(--neon-purple), var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+      animation: spin 4s linear infinite;
+      z-index: 0;
+    }
+
+    .avatar-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(var(--neon-purple), var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+      filter: blur(12px);
+      opacity: 0.6;
+      animation: spin 4s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .avatar-inner {
+      position: relative;
+      z-index: 1;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a0a2e, #0a1a2e);
+      border: 3px solid var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      background-clip: text;
+      overflow: hidden;
+    }
+
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .avatar-letter {
+      background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    /* Glitch title */
+    .glitch-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.6rem, 5vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      position: relative;
+      background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan), var(--neon-pink), var(--neon-cyan), var(--neon-purple));
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    .glitch-title::before,
+    .glitch-title::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .glitch-title::before {
+      animation: glitch1 3s infinite;
+      clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%);
+    }
+
+    .glitch-title::after {
+      animation: glitch2 3s infinite;
+      clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes glitch1 {
+      0%, 90%, 100% { transform: none; opacity: 0; }
+      92% { transform: translateX(-3px); opacity: 0.7; filter: hue-rotate(90deg); }
+      94% { transform: translateX(3px); opacity: 0.7; }
+      96% { transform: none; opacity: 0; }
+    }
+
+    @keyframes glitch2 {
+      0%, 85%, 100% { transform: none; opacity: 0; }
+      87% { transform: translateX(3px); opacity: 0.6; filter: hue-rotate(-90deg); }
+      89% { transform: translateX(-3px); opacity: 0.6; }
+      91% { transform: none; opacity: 0; }
+    }
+
+    .subtitle {
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      color: rgba(200, 200, 255, 0.7);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Section ── */
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--neon-cyan);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--neon-cyan), transparent);
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      backdrop-filter: blur(12px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(180,79,255,0.12), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--neon-purple);
+      box-shadow:
+        0 0 20px rgba(180,79,255,0.4),
+        0 0 60px rgba(180,79,255,0.15),
+        0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .card-name {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      color: var(--neon-cyan);
+      letter-spacing: 0.06em;
+      opacity: 0.8;
+    }
+
+    .card-arrow {
+      margin-top: auto;
+      font-size: 0.8rem;
+      color: var(--neon-purple);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .card:hover .card-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      color: rgba(200,200,255,0.3);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .container { padding: 40px 16px 60px; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="vanta-bg"></div>
+
+<div class="container">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="avatar-wrap">
+      <div class="avatar-inner">
+        <img src="your-avatar.JPG" alt="Millie" />
+      </div>
+    </div>
+
+    <h1 class="glitch-title" data-text="Millie的AI作品集">Millie的AI作品集</h1>
+    <p class="subtitle">欢迎和我一起玩 AI ~~</p>
+  </section>
+
+  <!-- Games -->
+  <section>
+    <h2 class="section-title">我的 AI 游戏</h2>
+    <div class="cards-grid">
+
+      <a class="card" href="https://card.millie-ai.online/" target="_blank" rel="noopener">
+        <div class="card-icon">🃏</div>
+        <div class="card-name">卡牌游戏</div>
+        <div class="card-tag">CARD GAME</div>
+        <div class="card-arrow">→ 立即游玩</div>
+      </a>
+
+      <a class="card" href="https://sum.tina-ai.xyz/" target="_blank" rel="noopener">
+        <div class="card-icon">🔢</div>
+        <div class="card-name">数块消除游戏</div>
+        <div class="card-tag">PUZZLE GAME</div>
+        <div class="card-arrow">→ 立即游玩</div>
+      </a>
+
+      <a class="card" href="https://planewar.millie-ai.online" target="_blank" rel="noopener">
+        <div class="card-icon">🚀</div>
+        <div class="card-name">星际先锋游戏</div>
+        <div class="card-tag">SPACE SHOOTER</div>
+        <div class="card-arrow">→ 立即游玩</div>
+      </a>
+
+      <a class="card" href="https://stardf.millie-ai.online/" target="_blank" rel="noopener">
+        <div class="card-icon">⭐</div>
+        <div class="card-name">新星防御游戏</div>
+        <div class="card-tag">TOWER DEFENSE</div>
+        <div class="card-arrow">→ 立即游玩</div>
+      </a>
+
+      <a class="card" href="https://color.millie-ai.online/" target="_blank" rel="noopener">
+        <div class="card-icon">🎨</div>
+        <div class="card-name">色彩敏感度游戏</div>
+        <div class="card-tag">COLOR SENSE</div>
+        <div class="card-arrow">→ 立即游玩</div>
+      </a>
+
+    </div>
+  </section>
+
+</div>
+
+<footer>© 2025 Millie · Powered by AI</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
+<script>
+  VANTA.BIRDS({
+    el: "#vanta-bg",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200,
+    minWidth: 200,
+    scale: 1.0,
+    scaleMobile: 1.0,
+    backgroundColor: 0x06060f,
+    color1: 0xb44fff,
+    color2: 0x00d4ff,
+    colorMode: "lerp",
+    birdSize: 1.2,
+    wingSpan: 25,
+    speedLimit: 4,
+    separation: 60,
+    alignment: 50,
+    cohesion: 50,
+    quantity: 3
+  });
+</script>
+
+</body>
+</html>
